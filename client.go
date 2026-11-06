@@ -65,21 +65,3 @@ func NewClient(clientID string, opts ...ClientOption) *Client {
 
 	return c
 }
-
-// SearchService handles searching catalog metadata and cross-catalog external ID resolution.
-type SearchService struct{ client *Client }
-
-// AnimeService handles anime metadata and episode retrieval.
-type AnimeService struct{ client *Client }
-
-// SyncService handles watchlist queries, activity checks, history, and ratings.
-type SyncService struct{ client *Client }
-
-// ScrobbleService handles real-time playback scrobbling sessions.
-type ScrobbleService struct{ client *Client }
-
-// UserService handles user settings and profile details.
-type UserService struct{ client *Client }
-
-// AuthService handles OAuth2 Authorization Code, token refresh, and Device/PIN flows.
-type AuthService struct{ client *Client }

@@ -1,0 +1,8 @@
+{
+  "device_code": "secret_device_code_handle",
+  "user_code": "BDWP-HQPK",
+  "verification_uri": "https://simkl.com/pin",
+  "verification_uri_complete": "https://simkl.com/pin?code=BDWP-HQPK",
+  "expires_in": 900,
+  "interval": 5
+}

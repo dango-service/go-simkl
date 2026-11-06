@@ -1,0 +1,14 @@
+{
+  "user": {
+    "name": "dango_watcher",
+    "joined_at": "2026-01-15T08:00:00Z",
+    "avatar": "https://simkl.in/avatars/12345.jpg",
+    "bio": "Watching anime with Dango",
+    "gender": "male",
+    "id": 123456
+  },
+  "account": {
+    "timezone": "America/New_York",
+    "country": "US"
+  }
+}
