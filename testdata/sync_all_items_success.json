@@ -1,0 +1,23 @@
+{
+  "anime": [
+    {
+      "status": "watching",
+      "last_watched_at": "2026-11-06T15:30:00Z",
+      "user_rating": 9,
+      "last_watched": "E12",
+      "next_to_watch": "E13",
+      "watched_episodes_count": 12,
+      "total_episodes_count": 24,
+      "show": {
+        "title": "Steins;Gate",
+        "year": 2011,
+        "ids": {
+          "simkl": 40164,
+          "simkl_id": 40164,
+          "mal": "9253",
+          "anilist": "9253"
+        }
+      }
+    }
+  ]
+}
