@@ -1,0 +1,18 @@
+{
+  "title": "Steins;Gate",
+  "year": 2011,
+  "type": "anime",
+  "anime_type": "tv",
+  "overview": "A self-proclaimed mad scientist invents a microwave that sends text messages to the past.",
+  "total_episodes": 24,
+  "status": "ended",
+  "rank": 2,
+  "genres": ["Sci-Fi", "Thriller"],
+  "ids": {
+    "simkl": 40164,
+    "simkl_id": 40164,
+    "mal": "9253",
+    "anilist": "9253",
+    "kitsu": "5890"
+  }
+}

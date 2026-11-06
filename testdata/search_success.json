@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Attack on Titan",
+    "year": 2013,
+    "type": "anime",
+    "poster": "attack_on_titan_poster.jpg",
+    "overview": "Humanity fights giant titans behind towering walls.",
+    "ids": {
+      "simkl": 44414,
+      "simkl_id": 44414,
+      "mal": "16498",
+      "anilist": "16498",
+      "kitsu": "7442",
+      "tmdb": "1429",
+      "tvdb": "267440"
+    }
+  }
+]
