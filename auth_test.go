@@ -26,6 +26,38 @@ func TestAuthService_AuthorizeURL(t *testing.T) {
 	if !strings.Contains(url, "state=random-state") {
 		t.Errorf("missing state in URL: %s", url)
 	}
+
+	pkceURL := client.Auth.AuthorizeURL("https://example.com/callback", "random-state", "test-challenge-s256")
+	if !strings.Contains(pkceURL, "code_challenge=test-challenge-s256") {
+		t.Errorf("missing code_challenge in PKCE URL: %s", pkceURL)
+	}
+	if !strings.Contains(pkceURL, "code_challenge_method=S256") {
+		t.Errorf("missing code_challenge_method in PKCE URL: %s", pkceURL)
+	}
+}
+
+func TestAuthService_ExchangeCode_PKCE(t *testing.T) {
+	fixture, err := os.ReadFile("testdata/token_success.json")
+	if err != nil {
+		t.Fatalf("failed to read fixture: %v", err)
+	}
+
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusOK)
+		_, _ = w.Write(fixture)
+	}))
+	defer server.Close()
+
+	client := NewClient("test-id", WithBaseURL(server.URL))
+
+	token, _, err := client.Auth.ExchangeCode(context.Background(), "auth-code", "https://example.com/callback", "", "my-code-verifier")
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if token.AccessToken != "simkl_at_test_access_token_1234567890" {
+		t.Errorf("unexpected access token: %s", token.AccessToken)
+	}
 }
 
 func TestAuthService_ExchangeCode(t *testing.T) {

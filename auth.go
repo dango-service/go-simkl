@@ -45,7 +45,8 @@ type DeviceCodeResponse struct {
 }
 
 // AuthorizeURL returns the user-facing consent URL to begin the OAuth2 Authorization Code grant.
-func (s *AuthService) AuthorizeURL(redirectURI, state string) string {
+// If codeChallenge is provided, standard PKCE parameters (S256) are appended to the query.
+func (s *AuthService) AuthorizeURL(redirectURI, state string, codeChallenge ...string) string {
 	baseURL := "https://simkl.com/oauth/authorize"
 	params := url.Values{}
 	params.Set("response_type", "code")
@@ -56,17 +57,28 @@ func (s *AuthService) AuthorizeURL(redirectURI, state string) string {
 	if state != "" {
 		params.Set("state", state)
 	}
+	if len(codeChallenge) > 0 && strings.TrimSpace(codeChallenge[0]) != "" {
+		params.Set("code_challenge", strings.TrimSpace(codeChallenge[0]))
+		params.Set("code_challenge_method", "S256")
+	}
 	return baseURL + "?" + params.Encode()
 }
 
 // ExchangeCode exchanges an authorization code for an OAuth2 token pair.
-func (s *AuthService) ExchangeCode(ctx context.Context, code, redirectURI, clientSecret string) (*Token, *Response, error) {
+// If clientSecret is empty (e.g. PKCE applications), it is omitted from the request body.
+// If codeVerifier is provided, it is included in the payload.
+func (s *AuthService) ExchangeCode(ctx context.Context, code, redirectURI, clientSecret string, codeVerifier ...string) (*Token, *Response, error) {
 	reqBody := map[string]string{
-		"grant_type":    "authorization_code",
-		"code":          strings.TrimSpace(code),
-		"client_id":     s.client.clientID,
-		"redirect_uri":  redirectURI,
-		"client_secret": strings.TrimSpace(clientSecret),
+		"grant_type":   "authorization_code",
+		"code":         strings.TrimSpace(code),
+		"client_id":    s.client.clientID,
+		"redirect_uri": redirectURI,
+	}
+	if strings.TrimSpace(clientSecret) != "" {
+		reqBody["client_secret"] = strings.TrimSpace(clientSecret)
+	}
+	if len(codeVerifier) > 0 && strings.TrimSpace(codeVerifier[0]) != "" {
+		reqBody["code_verifier"] = strings.TrimSpace(codeVerifier[0])
 	}
 	return s.requestToken(ctx, reqBody)
 }
