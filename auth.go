@@ -47,7 +47,7 @@ type DeviceCodeResponse struct {
 // AuthorizeURL returns the user-facing consent URL to begin the OAuth2 Authorization Code grant.
 // If codeChallenge is provided, standard PKCE parameters (S256) are appended to the query.
 func (s *AuthService) AuthorizeURL(redirectURI, state string, codeChallenge ...string) string {
-	baseURL := "https://simkl.com/oauth/authorize"
+	baseURL := "https://simkl.com/oauth2/authorize"
 	params := url.Values{}
 	params.Set("response_type", "code")
 	params.Set("client_id", s.client.clientID)
